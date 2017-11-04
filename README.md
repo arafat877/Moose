@@ -1,6 +1,4 @@
 # YAK CPU
-<img src="https://image.flaticon.com/icons/svg/124/124138.svg" alt="Drawing" style="width: 200px;"/>
-
 ## Implementation of RISC V architecture in VHDL language
 
 ## Architecture description
