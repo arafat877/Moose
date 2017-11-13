@@ -31,6 +31,9 @@
 * BEQ src1,src2,label - branch if equal
 * BNE src1,src2,label - branch if not equal
 * BLT src1,src2,label - branch if src1 is lower than src2
-* BGE src1,src2,label - branch if src1 is grater than src2
+* BGE src1,src2,label - branch if src1 is grater than src2  
+
+## UPDATES :
+ `13.11.2017` - first version of Program Counter working
 
 
