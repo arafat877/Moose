@@ -33,7 +33,7 @@
 * BLT src1,src2,label - branch if src1 is lower than src2
 * BGE src1,src2,label - branch if src1 is grater than src2  
 
-## UPDATES :
+## UPDATES 
  `13.11.2017` - first version of Program Counter working
 
 
