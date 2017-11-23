@@ -35,5 +35,6 @@
 
 ## Updates
  `13.11.2017` - first version of Program Counter working
+ `23.11.2017` - Register Bank synthesized for first time
 
 
