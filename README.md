@@ -34,7 +34,8 @@
 * BGE src1,src2,label - branch if src1 is grater than src2  
 
 ## Updates
- `13.11.2017` - first version of Program Counter working
- `23.11.2017` - Register Bank synthesized for first time
+ `13.11.2017` - first version of Program Counter working  
+ `23.11.2017` - Register Bank synthesized for first time  
+ `26.11.2017` - Fixed minor errors with Register Bank
 
 
