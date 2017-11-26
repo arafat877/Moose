@@ -16,7 +16,7 @@ entity Register_Bank is
 		
 		clk : in std_logic; -- clock signal
 		reg_address : in std_logic_vector ( 4 downto 0); -- address of register in bank ( there are 32 registers)
-		reg_data : inout std_logic_vector ( 31 downto 0); -- data to write to register or read from it
+		reg_data : inout std_logic_vector ( 31 downto 0) := (others => 'Z'); -- data to write to register or read from it
 		reg_command : in std_logic_vector ( 1 downto 0)  -- command for regiter bank
 	
 	);
