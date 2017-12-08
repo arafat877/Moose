@@ -45,17 +45,13 @@ begin
 	
 		if rising_edge(clk) then 
 		
-			if reg_command = "01" then -- load register
+			case reg_command  is 
 			
-				reg_bank(to_integer(unsigned(reg_address))) <= reg_data;
-			
-			end if;
-			
-			if reg_command = "10" then -- read register content
+			when "01" => reg_bank(to_integer(unsigned(reg_address))) <= reg_data; -- load register
+			when "10" => reg_data <= reg_bank(to_integer(unsigned(reg_address))); -- read register
+			when others => reg_data <= (others => 'Z'); --when no command is sent reg_data is on high impedance
 				
-				reg_data <= reg_bank(to_integer(unsigned(reg_address)));
-				
-			end if;
+			end case;
 		
 		end if;
 	
