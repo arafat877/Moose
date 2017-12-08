@@ -37,7 +37,7 @@
 ## Updates
  `13.11.2017` - first version of Program Counter working  
  `23.11.2017` - Register Bank synthesized for first time  
- `26.11.2017` - Fixed minor errors with Register Bank
- `08.12.2017` - First version of ALU published ( not tested)
+ `26.11.2017` - Fixed minor errors with Register Bank  
+ `08.12.2017` - First version of ALU published ( not tested)  
 
 
