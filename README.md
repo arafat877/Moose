@@ -25,6 +25,7 @@
 * ANDI dest,src1,I
 * ORI dest,src1,I
 * XORI dest,src1,I
+* NOT dest,src1
 
 ### Compare and Branch instructions
 * CMP register,register/value
