@@ -39,5 +39,6 @@
  `23.11.2017` - Register Bank synthesized for first time  
  `26.11.2017` - Fixed minor errors with Register Bank  
  `08.12.2017` - First version of ALU published ( not tested)  
+ `24.12.2017` - ALU overflow flag working
 
 
