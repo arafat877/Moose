@@ -17,7 +17,7 @@ entity ALU is
     alu_input_b : in std_logic_vector (31 downto 0); -- second alu input
     alu_command : in std_logic_vector (3 downto 0); -- command for alu
     alu_output : out std_logic_vector ( 31 downto 0); -- output from the alu
-	 alu_flags : inout std_logic_vector ( 3 downto 0) --flags ( to store additional information about output of operation)
+	 alu_flags : inout std_logic_vector ( 3 downto 0) := (others => '0') --flags ( to store additional information about output of operation)
 		
 		-- flags(0) - zero flag
 		-- flags(1) - carry flag
@@ -59,10 +59,10 @@ begin
 		  when "0010" => 
 		  
 		  alu_output <= std_logic_vector(signed(alu_input_a) - signed(alu_input_b)); -- a - b 
-				if signed(alu_input_a) - signed(alu_input_b) = 0 then
+				if signed(alu_input_a) = signed(alu_input_b) then
 					alu_flags(0) <= '1';
 				else 
-					alu_flags(0) <= '0';
+					alu_flags(0) <= '1';
 				end if;
 			
 		  when "0011" => alu_output <= alu_input_a or alu_input_b; -- a or b
