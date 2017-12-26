@@ -59,7 +59,7 @@ begin
 		  when "0010" => 
 		  
 		  alu_output <= std_logic_vector(signed(alu_input_a) - signed(alu_input_b)); -- a - b 
-				if signed(alu_input_a) = signed(alu_input_b) then
+				if alu_input_a = alu_input_b then
 					alu_flags(0) <= '1';
 				else 
 					alu_flags(0) <= '1';
