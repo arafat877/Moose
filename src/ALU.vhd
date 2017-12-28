@@ -59,10 +59,14 @@ begin
 		  when "0010" => 
 		  
 		  alu_output <= std_logic_vector(signed(alu_input_a) - signed(alu_input_b)); -- a - b 
+		  
 				if alu_input_a = alu_input_b then
-					alu_flags(0) <= '1';
+					alu_flags(0) <= '1'; -- set zero flag
+				elsif signed(alu_input_a) < signed(alu_input_b) then 
+					alu_flags(2) <= '1'; -- set signed flag
 				else 
-					alu_flags(0) <= '1';
+					alu_flags(0) <= '0';
+					alu_flags(2) <= '0';
 				end if;
 			
 		  when "0011" => alu_output <= alu_input_a or alu_input_b; -- a or b
