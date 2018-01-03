@@ -42,7 +42,7 @@ begin
 
 	reg_process : process (clk)
 	begin
-	
+			
 		if rising_edge(clk) then 
 		
 			case reg_command  is 
