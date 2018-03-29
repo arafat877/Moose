@@ -6,6 +6,8 @@ entity Pipeline_Register is
 	port(
 		data_in  : in std_logic_vector( 31 downto 0);
 		enable   : in std_logic;
+    clk      : in std_logic;
+    reset    : in std_logic;
 		data_out : out std_logic_vector( 31 downto 0)
 	);
 	
