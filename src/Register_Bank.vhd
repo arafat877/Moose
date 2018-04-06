@@ -13,12 +13,16 @@ use ieee.numeric_std.all;
 entity Register_Bank is
 
 	port(
-		
+
 		clk : in std_logic; -- clock signal
-		reg_address : in std_logic_vector ( 4 downto 0); -- address of register in bank ( there are 32 registers)
-		reg_data : inout std_logic_vector ( 31 downto 0) := (others => 'Z'); -- data to write to register or read from it
+		reg_output_a : out std_logic_vector ( 31 downto 0); -- first output to ALU
+		reg_output_b : out std_logic_vector ( 31 downto 0); -- second output to ALU
+		reg_address_a : in std_logic_vector ( 4 downto 0); -- first input into regiter bank
+		reg_address_b : in std_logic_vector ( 4 downto 0); -- seoond input into register bank
+		reg_address_c : in std_logic_vector ( 4 downto 0); -- address for writing data to register bank
+		reg_input_data : in std_logic_vector ( 31 downto 0); -- data to write into regiser bank
 		reg_command : in std_logic_vector ( 1 downto 0)  -- command for regiter bank
-	
+
 	);
 
 end Register_Bank;
@@ -42,21 +46,23 @@ begin
 
 	reg_process : process (clk)
 	begin
-			
-		if rising_edge(clk) then 
-		
-			case reg_command  is 
-			
-			when "01" => reg_bank(to_integer(unsigned(reg_address))) <= reg_data; -- load register
-			when "10" => reg_data <= reg_bank(to_integer(unsigned(reg_address))); -- read register
-			when others => reg_data <= (others => 'Z'); --when no command is sent reg_data is on high impedance
-				
+
+		if rising_edge(clk) then
+
+			case reg_command  is
+
+			when "01" => reg_bank(to_integer(unsigned(reg_address_c))) <= reg_input_data; -- load register
+			when "10" =>  																			-- read registers ( for alu operations )
+				reg_output_a <= reg_bank(to_integer(unsigned(reg_address_a)));
+				reg_output_b <= reg_bank(to_integer(unsigned(reg_address_b)));
+			when others => reg_output_a <= (others => 'Z'); --when no command is sent reg_ister output is on high impedance
+								reg_output_b <= (others => 'Z');
+
 			end case;
-		
+
 		end if;
-	
+
 	end process;
 
 
 end Behavioral;
-
