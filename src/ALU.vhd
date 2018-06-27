@@ -62,8 +62,6 @@ begin
         
         end case;    
     
-    else if inst_type = '0' then -- I type
-    
     
    end if;
     
