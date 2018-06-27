@@ -44,15 +44,19 @@ begin
                     res <= std_logic_vector(unsigned(rs1)-unsigned(rs2));
                 end if;
                 
-            when "001" => -- sll
+            when "001" => res <= std_logic_vector(shift_left(unsigned(rs1),to_integer(unsigned(rs2))));-- sll
+            
             when "010" => --slt
+           
             when "011" => -- sltu
+           
             when "100" => res <= rs1 xor rs2;
+           
             when "101" =>
-                if func7_2bit = 0 then -- srl
-                
+                if func7_2bit = '0' then -- srl
+                    res <= std_logic_vector(shift_right(unsigned(rs1),to_integer(unsigned(rs2))));
                 else -- sra
-                
+                     res <= std_logic_vector(shift_right(signed(rs1),to_integer(unsigned(rs2))));
                 end if;
                 
             when "110" => res <= rs1 or rs2;
