@@ -46,9 +46,21 @@ begin
                 
             when "001" => res <= std_logic_vector(shift_left(unsigned(rs1),to_integer(unsigned(rs2))));-- sll
             
-            when "010" => --slt
-           
-            when "011" => -- sltu
+            when "010" => --slt ( signed )
+                   
+                   if signed(rs1) < signed(rs2) then
+                        res <= "00000000000000000000000000000001";
+                   else
+                        res <= (others => '0');
+                   end if; 
+                           
+            when "011" => -- sltu ( unsigned )
+                   
+                   if unsigned(rs1) < unsigned(rs2) then
+                      res <= "00000000000000000000000000000001";
+                  else
+                      res <= (others => '0');
+                  end if; 
            
             when "100" => res <= rs1 xor rs2;
            
@@ -65,8 +77,11 @@ begin
                 
         
         end case;    
-    
-    
+        
+   end if;
+   
+   if inst_type = '0' then
+   
    end if;
     
    
