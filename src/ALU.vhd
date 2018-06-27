@@ -11,72 +11,65 @@ use IEEE.NUMERIC_STD.ALL;
 entity ALU is
 
   port(
-  
-    alu_command : in std_logic_vector (3 downto 0); -- command for alu
-	alu_flags : inout std_logic_vector ( 3 downto 0) := (others => '0'); --flags ( to store additional information about output of operation)
-	alu_input_a : in std_logic_vector (31 downto 0); -- first alu input
-    alu_input_b : in std_logic_vector (31 downto 0); -- second alu input
-	alu_output : out std_logic_vector ( 31 downto 0) := (others => 'Z') -- signal used for writing to data bus
-		
-		-- flags(0) - zero flag
-		-- flags(1) - carry flag
-		-- flags(2) - signed flag
-		-- flags(3) - overflow flag
+        
+        clk : in std_logic;
+        func3 : in std_logic_vector(2 downto 0);
+        func7_2bit : in std_logic;
+        rs1 : in std_logic_vector(31 downto 0);
+        rs2 : in std_logic_vector(31 downto 0);
+        imm : in std_logic_vector(31 downto 0);
+        inst_type : in std_logic; -- 1 for R type, 0 for I type
+        res : out std_logic_vector(31 downto 0)
+       
 		
 	);
   
 end ALU;
 
 architecture Behavioral of ALU is
-	
-	signal alu_output_resized : std_logic_vector (32 downto 0) := (others => '0');
-
-
 begin
 
---------------
-----------
--- Process name: alu_process
--- Purpose: Does the instruction specified by alu_command
--- Outcome: Change of alu_output signal
-----------
---------------
+   alu_process : process(clk)
+   begin
+   
+   if inst_type = '1' then -- R type instruction
+    
+        case func3 is
+        
+            when "000" => 
+                
+                if func7_2bit = '1' then
+                    res <= std_logic_vector(unsigned(rs1)+unsigned(rs2));
+                else 
+                    res <= std_logic_vector(unsigned(rs1)-unsigned(rs2));
+                end if;
+                
+            when "001" => -- sll
+            when "010" => --slt
+            when "011" => -- sltu
+            when "100" => res <= rs1 xor rs2;
+            when "101" =>
+                if func7_2bit = 0 then -- srl
+                
+                else -- sra
+                
+                end if;
+                
+            when "110" => res <= rs1 or rs2;
+            when "111" => res <= rs1 and rs2;
+                
+                
+        
+        end case;    
+    
+    else if inst_type = '0' then -- I type
+    
+    
+   end if;
+    
+   
+   end process;
 
-  alu_process : process(alu_input_a,alu_input_b)
-  begin
-
-      case alu_command is
-
-        when "0000" => alu_output <= (others => '0'); -- alu does nothing ( NOP )
-        when "0001" => 
-			
-			alu_output <= std_logic_vector(signed(alu_input_a) + signed(alu_input_b)); -- a + b 
-			alu_output_resized <= std_logic_vector(signed('0' & alu_input_a) + signed('0' & alu_input_b)); -- first bit of this vector is carry flag
-			alu_flags(1) <= alu_output_resized(32); -- set carry flag to MSB of alu_output_resized			
-				
-		  when "0010" => 
-		  
-		  alu_output <= std_logic_vector(signed(alu_input_a) - signed(alu_input_b)); -- a - b 
-		  
-				if alu_input_a = alu_input_b then
-					alu_flags(0) <= '1'; -- set zero flag
-				elsif signed(alu_input_a) < signed(alu_input_b) then 
-					alu_flags(2) <= '1'; -- set signed flag
-				else 
-					alu_flags(0) <= '0';
-					alu_flags(2) <= '0';
-				end if;
-			
-		when "0011" => alu_output <= alu_input_a or alu_input_b; -- a or b
-        when "0100" => alu_output <= alu_input_a and alu_input_b; -- a and b
-        when "0101" => alu_output <= alu_input_a xor alu_input_b; -- a xor b
-		when "0110" => alu_output <= not alu_input_a; -- invert a
-		when others => alu_output <= (others => 'Z');	-- not a legal command
-		
-      end case;
-       
-  end process;
-  
 
 end Behavioral;
 
