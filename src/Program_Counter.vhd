@@ -26,10 +26,10 @@ begin
 
 	pc_process : process(clk)
 	begin
-	
-	   pc_current <= pc_input;
-	   pc_output <= pc_current;
-	
+        if rising_edge(clk) then
+           pc_current <= pc_input;
+           pc_output <= pc_current;
+        end if;
 	end process;
 
 end Behavioral;
