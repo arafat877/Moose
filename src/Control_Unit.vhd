@@ -30,7 +30,7 @@ begin
                 Branch <= '0';
                 MemRead <= '0';
                 MemtoReg <= '0';
-                ALUOp <= "00";
+                ALUOp <= "01";
                 MemWrite <= '0';
                 ALUSrc <= '0';
                 RegWrite <= '1';
