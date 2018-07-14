@@ -38,12 +38,28 @@ begin
                 
            when "0010"=> output <= std_logic_vector(shift_left(unsigned(input1),to_integer(unsigned(input2)) ) );
            when "0011"=> 
+           
+                if signed(input1) < signed(input2) then
+                    output(31 downto 1) <= (others => '0');
+                    output(0) <= '1';
+                else 
+                    output <= (others => '0');
+                end if;
+                
            when "0100"=>
-           when "0101"=>
+           
+             if unsigned(input1) < unsigned(input2) then
+                             output(31 downto 1) <= (others => '0');
+                             output(0) <= '1';
+                         else 
+                             output <= (others => '0');
+                         end if;
+                         
+           when "0101"=> output <= input1 xor input2;
            when "0110"=> output <= std_logic_vector(shift_right(unsigned(input1),to_integer(unsigned(input2)) ) );
-           when "0111"=>
-           when "1000"=>
-           when "1001"=>
+           when "0111"=> output <= std_logic_vector(shift_left(unsigned(input1),to_integer(signed(input2)) ) );
+           when "1000"=> output <= input1 or input2;
+           when "1001"=> output <= input1 and input2;
            when "1010"=>
            when "1011"=>
            when "1100"=>
