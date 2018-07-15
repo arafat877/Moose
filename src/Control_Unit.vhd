@@ -30,10 +30,19 @@ begin
                 Branch <= '0';
                 MemRead <= '0';
                 MemtoReg <= '0';
-                ALUOp <= "01";
+                ALUOp <= "10";
                 MemWrite <= '0';
                 ALUSrc <= '0';
                 RegWrite <= '1';
+            when "0010011" => -- I type Instruction
+                Branch <= '0';
+                MemRead <= '1';
+                MemtoReg <= '1';
+                ALUOp <= "00";
+                MemWrite <= '0';
+                ALUSrc <= '1';
+                RegWrite <= '1';
+                
                 
                 
         end case;
