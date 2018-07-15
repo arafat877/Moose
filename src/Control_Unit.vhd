@@ -42,7 +42,14 @@ begin
                 MemWrite <= '0';
                 ALUSrc <= '1';
                 RegWrite <= '1';
-                
+            when "0100011" => -- S type Instruction
+                Branch <= '0';
+                MemRead <= '0';
+                MemtoReg <= 'X';
+                ALUOp <= "00";
+                MemWrite <= '1';
+                ALUSrc <= '1';
+                RegWrite <= '0';               
                 
                 
         end case;
