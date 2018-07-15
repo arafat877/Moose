@@ -34,7 +34,7 @@ begin
                 MemWrite <= '0';
                 ALUSrc <= '0';
                 RegWrite <= '1';
-            when "0010011" => -- I type Instruction
+            when "0000011" => -- I type Instruction
                 Branch <= '0';
                 MemRead <= '1';
                 MemtoReg <= '1';
