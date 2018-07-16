@@ -24,35 +24,16 @@ begin
     
     alu_control : process( funct3 , funct7, ALUOp)
     begin
-     
-        if (ALUOp = "00") or (ALUOp = "01") then -- R and I type instruction  
-     
-            case funct3 is 
-                
-                when "000" => 
-                    if funct7 = '0' then
-                        alu_opcode <= "0000"; -- add
-                    else
-                        alu_opcode <= "0001"; -- sub
-                    end if;
-                        
-                when "001" => alu_opcode <= "0010"; -- sll
-                when "010" => alu_opcode <= "0011"; -- slt
-                when "011" => alu_opcode <= "0100"; -- sltu
-                when "100" => alu_opcode <= "0101"; -- xor
-                when "101" =>
-                    if funct7 = '0' then
-                        alu_opcode <= "0110"; -- srl
-                    else
-                        alu_opcode <= "0111"; -- sra
-                    end if;
-                    
-                when "110" => alu_opcode <= "1000"; -- or
-                when "111" => alu_opcode <= "1001"; -- and
-              
-            end case;
+        
+        case ALUOp is 
             
-       end if;
+            when "00" => alu_opcode <= "0000"; -- add is for load and store Instructions
+            when "01" => alu_opcode <= "0001"; -- sub is for branching
+            when "10" =>
+                
+            
+        end case;
+        
         
     end process;
 
