@@ -49,7 +49,16 @@ begin
                 ALUOp <= "00";
                 MemWrite <= '1';
                 ALUSrc <= '1';
-                RegWrite <= '0';               
+                RegWrite <= '0';  
+            when "1100011" => -- SB type Instruction
+                Branch <= '1';
+                MemRead <= '0';
+                MemtoReg <= 'X';
+                ALUOp <= "01";
+                MemWrite <= '0';
+                ALUSrc <= '0';
+                RegWrite <= '0';  
+                             
                 
                 
         end case;
