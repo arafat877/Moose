@@ -30,6 +30,8 @@ begin
             when "00" => alu_opcode <= "0000"; -- add is for load and store Instructions
             when "01" => alu_opcode <= "0001"; -- sub is for branching
             when "10" =>
+                -- depends on funct3 and funct7 bits
+                
                 
             
         end case;
