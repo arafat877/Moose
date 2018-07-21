@@ -66,7 +66,14 @@ begin
                 MemWrite <= '0';
                 ALUSrc <= '1';
                 RegWrite <= '1';   
-                             
+           when others =>
+               Branch <= 'X';
+               MemRead <= 'X';
+               MemtoReg <= 'X';
+               ALUOp <= "XX";
+               MemWrite <= 'X';
+               ALUSrc <= 'X';
+               RegWrite <= 'X';                   
                 
                 
         end case;
