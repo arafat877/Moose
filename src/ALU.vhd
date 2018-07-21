@@ -58,16 +58,10 @@ begin
                 
            when "0110"=> output <= input1 xor input2;
            when "0111"=> output <= std_logic_vector(shift_right(unsigned(input1),to_integer(unsigned(input2)) ) );
-           when "1000"=> output <= std_logic_vector(shift_left(unsigned(input1),to_integer(signed(input2)) ) );
+           when "1000"=> output <= std_logic_vector(shift_right(unsigned(input1),to_integer(signed(input2)) ) );
            when "1001"=> output <= input1 or input2;
            when "1010"=> output <= input1 and input2;
-           when "1011"=>
-           when "1100"=>
-           when "1101"=>
-           when "1110"=>
-           when "1111"=>
-                         
-            
+           when others => output <= (others => 'X');            
         end case;
     
     end process;
