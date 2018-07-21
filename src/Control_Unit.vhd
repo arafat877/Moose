@@ -58,6 +58,14 @@ begin
                 MemWrite <= '0';
                 ALUSrc <= '0';
                 RegWrite <= '0';  
+            when "0010011" => -- Immediate instructions
+                Branch <= '0';
+                MemRead <= '0';
+                MemtoReg <= '0';
+                ALUOp <= "10";
+                MemWrite <= '0';
+                ALUSrc <= '1';
+                RegWrite <= '1';   
                              
                 
                 
