@@ -19,7 +19,7 @@ architecture Behavioral of ALU_control is
 
 begin
 
-    funct3 <= instruction(14 downto 0);
+    funct3 <= instruction(14 downto 12);
     funct7 <= instruction(31 downto 25);
     
     alu_control : process( funct3 , funct7, ALUOp)
@@ -27,8 +27,8 @@ begin
         
         case ALUOp is 
             
-            when "00" => alu_opcode <= "0000"; -- add is for load and store Instructions
-            when "01" => alu_opcode <= "0001"; -- sub is for branching
+            when "00" => alu_opcode <= "0001"; -- add is for load and store Instructions
+            when "01" => alu_opcode <= "0010"; -- sub is for branching
             when "10" =>
                 
                 case funct3 is
@@ -37,6 +37,7 @@ begin
                         case funct7 is
                             when "0000000" => alu_opcode <= "0001"; -- add
                             when "0100000" => alu_opcode <= "0010"; -- sub
+									 when others => alu_opcode <= "ZZZZ";
                         end case;
                     when "001" => alu_opcode <= "0011";
                     when "010" => alu_opcode <= "0100";
@@ -46,12 +47,15 @@ begin
                         case funct7 is
                             when "0000000" => alu_opcode <= "0111";
                             when "0100000" => alu_opcode <= "1000";
+									 when others => alu_opcode <= "ZZZZ";
                         end case;
                    when "110" => alu_opcode <= "1001";
                    when "111" => alu_opcode <= "1011";
+						 when others => alu_opcode <= "ZZZZ";
                         
                     
                 end case;
+			when others => alu_opcode <= "ZZZZ";
                 
                 
             
