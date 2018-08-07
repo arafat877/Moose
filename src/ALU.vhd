@@ -11,7 +11,7 @@ use IEEE.NUMERIC_STD.ALL;
 entity ALU is
 
   port(       
-        opcode : in std_logic_vector( 4 downto 0);
+        opcode : in std_logic_vector( 3 downto 0);
         input1 : in std_logic_vector ( 31 downto 0);
         input2 : in std_logic_vector ( 31 downto 0);
         output : out std_logic_vector ( 31 downto 0);
