@@ -13,7 +13,8 @@ use ieee.numeric_std.all;
 entity Register_Bank is
 
 	port(
-	    clk : in std_logic;
+	     clk : in std_logic;
+		  reset : in std_logic;
         read_reg1 : in std_logic_vector( 4 downto 0);
         read_reg2 : in std_logic_vector ( 4 downto 0);
         write_reg : in std_logic_vector ( 4 downto 0);
@@ -39,13 +40,17 @@ begin
     
         if rising_edge(clk) then 
             
-            read_data1 <= reg_bank( to_integer(unsigned( read_reg1 )));
-            read_data2 <= reg_bank( to_integer(unsigned( read_reg2 )));
-                 
-            if reg_write = '1' then
-                reg_bank( to_integer(unsigned( write_reg ))) <= write_data;
-            end if;
-                 
+				if reset = '1' then
+					reg_bank(0 to 31)<= (others => (others => '0'));
+				else
+				
+					read_data1 <= reg_bank( to_integer(unsigned( read_reg1 )));
+					read_data2 <= reg_bank( to_integer(unsigned( read_reg2 )));
+						  
+					if reg_write = '1' then
+						 reg_bank( to_integer(unsigned( write_reg ))) <= write_data;
+					end if;
+            end if; 
         end if;
    
     end process;
