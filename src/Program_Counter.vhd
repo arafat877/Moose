@@ -12,6 +12,7 @@ entity Program_Counter is
 	
 	port(	
 		clk : in std_logic; -- clock signal
+		reset : in std_logic;
 		pc_input : in std_logic_vector( 31 downto 0);
 		pc_output : out std_logic_vector( 31 downto 0)
 	);
@@ -27,8 +28,13 @@ begin
 	pc_process : process(clk)
 	begin
         if rising_edge(clk) then
-           pc_current <= pc_input;
-           pc_output <= pc_current;
+		  
+			if reset = '1' then
+					pc_current <= (others => '0');
+			  else
+				  pc_current <= pc_input;
+				  pc_output <= pc_current;
+			  end if;
         end if;
 	end process;
 
