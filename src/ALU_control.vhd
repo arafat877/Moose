@@ -35,50 +35,26 @@ begin
     
 			  case ALUOp is 
 					
-					when "00" => alu_opcode <= "0001"; -- add is for load and store Instructions
-					when "01" => alu_opcode <= "0010"; -- sub is for branching
+					when "00" => alu_opcode <= "0010"; -- add is for load and store Instructions
+					when "01" => alu_opcode <= "0110"; -- sub is for branching
 					when "10" =>
-						 
-						 case funct3 is
-							  
-							  when "000"=>
-										
-									if instruction( 6 downto 0) = "0110011" then -- R type
-										case funct7 is								
-											 when "0000000" => alu_opcode <= "0001"; -- add
-											 when "0100000" => alu_opcode <= "0010"; -- sub
-											 when others => alu_opcode <= "ZZZZ";
-										end case;
-									else
-										alu_opcode <= "0001";
-									end if;
-									
-							  when "001" => alu_opcode <= "0011";
-							  when "010" => alu_opcode <= "0100";
-							  when "011" => alu_opcode <= "0101";
-							  when "100" => alu_opcode <= "0110";
-							  when "101" =>			
-									if instruction( 6 downto 0) = "0110011" then -- R type
-										case funct7 is
-											when "0000000" => alu_opcode <= "0111";
-											when "0100000" => alu_opcode <= "1000";
-											when others => alu_opcode <= "ZZZZ";
-										end case;
-									else
-										alu_opcode <= "0001";
-									end if;
-									
-							 when "110" => alu_opcode <= "1001";
-							 when "111" => alu_opcode <= "1011";
-							 when others => alu_opcode <= "ZZZZ";
-									
-							  
-						 end case;
-				when others => alu_opcode <= "ZZZZ";
-						 			
-			  end case;
-        end if;
-		end if;   
+							
+							case funct3 is
+							
+								when "000" =>
+									with funct7(5) select alu_opcode <=
+										"0010" when "0", -- add
+										"0110" when "1"; -- sub
+								when "110" =>
+									alu_opcode <= "0001";
+								when "111" =>
+									alu_opcode <= "0000";
+							
+							end case;
+					when others => alu_opcode <= "ZZZZ";
+					end case;
+		end if;
+	 end if;
     end process;
 
 end Behavioral;
