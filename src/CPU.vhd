@@ -109,6 +109,15 @@ component Data_memory is
 	);
 end component;
 
+component Adder is
+	port(
+		input1 : in std_logic_vector( 31 downto 0);
+		input2 : in std_logic_vector( 31 downto 0);
+		output : out std_logic_vector( 31 downto 0)
+	);
+end component;
+
+
 -- Signals declaration
 signal pc_input : std_logic_vector(31 downto 0);
 signal pc_output : std_logic_vector(31 downto 0);
@@ -126,10 +135,17 @@ signal zeroes : std_logic_vector(19 downto 0) := (others => '0');
 signal mux1_out : std_logic_vector(31 downto 0);
 signal mux2_out : std_logic_vector(31 downto 0);
 signal Mux1_input1 : std_logic_vector( 31 downto 0);
+signal Data_mem_out : std_logic_vector(31 downto 0);
+signal Branch_and_zero : std_logic;
+signal imm_shifted : std_logic_vector( 31 downto 0);
+signal adder_output : std_logic_vector( 31 downto 0);
+signal add4_output : std_logic_vector( 31 downto 0);
 
 begin
 
 Mux1_input1 <= zeroes & imm_gen_out;
+Branch_and_zero <= Branch and zero;
+imm_shifted <= Mux1_input1(30 downto 0) & '0'; 
 
 Prog_Cntr : Program_Counter port map(clk,reset,pc_input,pc_output);
 Instruction_Memory : Inst_Memory port map(clk,pc_output,instruction);
@@ -139,6 +155,12 @@ Cntrl : Control_Unit port map(instruction(6 downto 0) , Branch, MemRead, MemtoRe
 ALUCntrl : ALU_control port map(clk, reset, instruction, ALUOp, alu_opcode);
 Mux1 : Mux_2to1 port map(Mux1_input1, Read_Data2, mux1_out, ALUSrc );
 ALUnit : ALU port map(clk, reset, alu_opcode, Read_Data1, mux1_out ,alu_output,zero );
+DataMem : Data_memory port map(clk, Read_Data2, alu_output, MemRead, MemWrite, Data_mem_out);
+Mux2 : Mux_2to1 port map(Data_mem_out, alu_output, Write_Data, MemtoReg);
+Adder_component : Adder port map(imm_shifted, pc_output, adder_output);
+Adder_component2 : Adder port map(pc_output, "00000000000000000000000000000100" ,add4_output);
+Mux3 : Mux_2to1 port map(adder_output, add4_output, pc_input, Branch_and_zero);
+
 
 	CPU_process : process(clk)
 	begin
