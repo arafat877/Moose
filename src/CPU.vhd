@@ -133,7 +133,7 @@ signal alu_output : std_logic_vector( 31 downto 0);
 signal zero : std_logic;
 signal zeroes : std_logic_vector(19 downto 0) := (others => '0');
 signal mux1_out : std_logic_vector(31 downto 0);
-signal mux2_out : std_logic_vector(31 downto 0);
+--signal mux2_out : std_logic_vector(31 downto 0);
 signal Mux1_input1 : std_logic_vector( 31 downto 0);
 signal Data_mem_out : std_logic_vector(31 downto 0);
 signal Branch_and_zero : std_logic;

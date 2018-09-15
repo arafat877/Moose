@@ -42,6 +42,8 @@ begin
             
 				if reset = '1' then
 					reg_bank(0 to 31)<= (others => (others => '0'));
+					read_data1 <= (others => '0');
+					read_data2 <= (others => '0');
 				else
 				
 					read_data1 <= reg_bank( to_integer(unsigned( read_reg1 )));

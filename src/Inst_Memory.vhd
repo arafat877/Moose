@@ -21,7 +21,16 @@ signal mem : Memory_Content := (others => (others => '0'));
 
 begin
 
-mem(0) <= (others => '1');
+-- testing
+mem(0)  <= "00000000000000000000000100000011"; -- load reg2,%0
+mem(4)  <= "00000000000000000000000010000011"; -- load reg1,%0
+mem(8)  <= "00000000001000001000000110110011"; -- add reg3,reg1,reg2
+--mem(12) <= "00000000001100001000000000100011"; -- store reg3,[imm+reg1]
+--------
+
+--signal_1 <= std_logic_vector(unsigned(read_address) + to_unsigned(1,32));
+--signal_2 <= std_logic_vector(unsigned(read_address) + to_unsigned(2,32));
+--signal_3 <= std_logic_vector(unsigned(read_address) + to_unsigned(3,32));
 
 	mem_proc : process(clk)
 	begin

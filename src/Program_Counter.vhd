@@ -21,8 +21,6 @@ end Program_Counter;
 
 architecture Behavioral of Program_Counter is
 
-	signal pc_current : std_logic_vector( 31 downto 0); -- signal for holding internal state of counter
-
 begin
 
 	pc_process : process(clk)
@@ -30,10 +28,9 @@ begin
         if rising_edge(clk) then
 		  
 			if reset = '1' then
-					pc_current <= (others => '0');
-			  else
-				  pc_current <= pc_input;
-				  pc_output <= pc_current;
+					pc_output  <= (others => '0');
+			  else 
+				  pc_output <= pc_input;
 			  end if;
         end if;
 	end process;

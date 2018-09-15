@@ -15,23 +15,12 @@ end ALU_control;
 
 architecture Behavioral of ALU_control is
 
-     signal funct3 : std_logic_vector ( 2 downto 0);
-     signal funct7 : std_logic_vector (6 downto 0);
-
 begin
 
     alu_control : process(clk)
     begin
         
 	 if rising_edge(clk) then
-	 
-		if reset = '1' then
-			alu_opcode <= "0000";
-			funct3 <= "000";
-			funct7 <= "0000000";
-		else
-    		   funct3 <= instruction(14 downto 12);
-				funct7 <= instruction(31 downto 25);
     
 			  case ALUOp is 
 					
@@ -39,22 +28,28 @@ begin
 					when "01" => alu_opcode <= "0110"; -- sub is for branching
 					when "10" =>
 							
-							case funct3 is
+							case instruction(14 downto 12) is
 							
 								when "000" =>
-									with funct7(5) select alu_opcode <=
-										"0010" when "0", -- add
-										"0110" when "1"; -- sub
+									
+									if instruction(30) = '0' then
+										alu_opcode <= "0010"; -- add
+									else
+										alu_opcode <= "0110"; -- sub
+									end if;
+								
 								when "110" =>
-									alu_opcode <= "0001";
+									alu_opcode <= "0001"; -- or
 								when "111" =>
-									alu_opcode <= "0000";
-							
+									alu_opcode <= "0000"; -- and
+								when others => 
+									alu_opcode <= "ZZZZ";
+								
 							end case;
 					when others => alu_opcode <= "ZZZZ";
 					end case;
+					
 		end if;
-	 end if;
     end process;
 
 end Behavioral;

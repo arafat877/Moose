@@ -19,21 +19,24 @@ end Data_memory;
 
 architecture Behavioral of Data_memory is
 
-type Memory_Content is array ( 0 to 255) of std_logic_vector(31 downto 0);
-signal mem : Memory_Content := (others => (others => '0'));
+type Memory_Content is array ( 0 to 7) of std_logic_vector(31 downto 0);
+signal mem : Memory_Content := (others => "00000000000000000000000000000011");
+
+
+--(others => (others => '0'));
 
 begin
 
 	memProc : process(clk)
 	begin
 	
-	if MemWrite = '1' then
-		mem(to_integer(unsigned(address))) <= write_data;
-	elsif memRead = '1' then
-		read_data <= mem(to_integer(unsigned(address)));
-	elsif MemWrite = '0' and MemWrite = '0' then
-		read_data <= (others => '0');
-	end if;
+		if MemWrite = '1' then
+			mem(to_integer(unsigned(address))) <= write_data;
+		elsif memRead = '1' then
+			read_data <= mem(to_integer(unsigned(address)));
+		elsif MemWrite = '0' and MemWrite = '0' then
+			read_data <= (others => '0');
+		end if;
 	
 	end process;
 
