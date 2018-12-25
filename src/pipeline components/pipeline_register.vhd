@@ -1,23 +1,27 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
-entity IF_ID_register is
+entity pipeline_register is
+
+generic(
+	msb : integer := 63
+);
 
 port(
 	
 	clk : std_logic;
-	input_signal : in std_logic_vector( 63 downto 0);
-	output_signal  : out std_logic_vector( 63 downto 0);
+	input_signal : in std_logic_vector( msb downto 0);
+	output_signal  : out std_logic_vector( msb downto 0);
 	reset : in std_logic;
 	enable : in std_logic
 
 );
 
-end IF_ID_register;
+end pipeline_register;
 
-architecture Behavioral of IF_ID_register is
+architecture Behavioral of pipeline_register is
 
-	signal state : std_logic_vector( 63 downto 0);
+	signal state : std_logic_vector( msb downto 0);
 
 begin
 
