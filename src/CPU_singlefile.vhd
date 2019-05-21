@@ -32,12 +32,12 @@ signal next_address : std_logic_vector( 63 downto 0) := (others => '0');
 
 -- Definition and init of register bank
 type bank is array ( 0 to 31) of std_logic_vector( 31 downto 0);
---signal reg_bank : bank := (others =>(others => '0'));
-signal reg_bank : bank := (others =>"00000000000000000000000000000001"); -- for testing
+signal reg_bank : bank := (others =>(others => '0'));
+--signal reg_bank : bank := (others =>"00000000000000000000000000000001"); -- for testing
 
 -- Memory
 type memory is array ( 0 to 1023) of std_logic_vector( 31 downto 0);
-signal Data_Memory : memory := (others =>( others => '0'));
+signal Data_Memory : memory := (others =>"00000000000000000000000000000001");
 
 begin 
 
