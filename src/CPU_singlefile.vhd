@@ -23,7 +23,7 @@ signal MEM_WB_register : std_logic_vector(65 downto 0);
 -- interphase signals
 signal  RegWrite :   std_logic;
 signal Write_Data : std_logic_vector( 31 downto 0);
-signal Branch_control : std_logic := '0';
+signal Branch_control : std_logic := '1'; -- DEFAULT
 
 
 -- signals for controling Program counter
@@ -33,7 +33,7 @@ signal next_address : std_logic_vector( 63 downto 0) := (others => '0');
 -- Definition and init of register bank
 type bank is array ( 0 to 31) of std_logic_vector( 31 downto 0);
 --signal reg_bank : bank := (others =>(others => '0'));
-signal reg_bank : bank := (others =>"00000000000000000000000000000011");
+signal reg_bank : bank := (others =>"00000000000000000000000000000001"); -- for testing
 
 -- Memory
 type memory is array ( 0 to 1023) of std_logic_vector( 31 downto 0);
@@ -41,7 +41,7 @@ signal Data_Memory : memory := (others =>( others => '0'));
 
 begin 
 
-	FETCH_process : process(clk)
+	FETCH_process : process(clk, Program_counter)
 	
 	variable pc_new : std_logic_vector( 63 downto 0) := (others => '0');
 	
@@ -51,9 +51,9 @@ begin
 		
 		if rising_edge(clk) then
 			
-			case  Branch_control is -- vraca se iz komparatora na izlazu iz registara
-				when '0' => Program_counter <= next_address;
-				when '1' => Program_counter <= pc_new;
+			case  Branch_control is 
+				when '1' => Program_counter <= next_address;
+				when '0' => Program_counter <= pc_new;
 				when others => Program_counter <= (others => '0');
 			end case;
 		
@@ -264,7 +264,7 @@ begin
     		end if;
 			
 			if EX_MEM_register(135) = '1' then -- read
-				 mem_wb_register( 31 downto 0) <= Data_memory( to_integer( unsigned( EX_MEM_register(96 downto 65)))); -- izalza iz memorije
+				 mem_wb_register( 31 downto 0) <= Data_memory( to_integer( unsigned( EX_MEM_register(96 downto 65)))); 
 			else 
 				 mem_wb_register( 31 downto 0)  <= (others => '0');
 			end if;
